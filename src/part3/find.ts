@@ -13,7 +13,7 @@ export const findResult = <T>(pred: (x: T) => boolean, a: T[]): Result<T> => {
         if (pred(a[i])) return makeOk(a[i]);
     }
     return makeFailure("No element found.");
-}
+} //with anyPass
 
 /* Client code */
 const returnSquaredIfFoundEven_v1 = (a: number[]): number => {

@@ -2,15 +2,9 @@ import * as R from "ramda";
 
 const stringToArray = R.split("");
 
-const pred = (m: Map<string, number> , c: string) => m.has(c);
-
-const f = R.pipe(
-    (s: string) => s.toLowerCase,
-    (s: string) => stringToArray(s)
-);
-
 /* Question 1 */
-export const countLetters: (s: string) => {} = s => 
+
+export const countLetters: (s: string) => {} = s => R.countBy(R.toLower)(stringToArray(s));
 
 /* Question 2 */
 const filterParentheses = (s: string) => (s === "(" || s === "{" || s === "[" || s === ")" || s === "}" || s === "]");
