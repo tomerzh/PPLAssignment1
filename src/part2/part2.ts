@@ -9,18 +9,14 @@ export const countLetters: (s: string) => {} = s => R.countBy(R.toLower)(stringT
 /* Question 2 */
 const filterParentheses = (s: string) => (s === "(" || s === "{" || s === "[" || s === ")" || s === "}" || s === "]");
 
-const myMap = new Map<string, number>([
-    ["(", 0], ["{", 0], ["[", 0]
-]);
+let parenthesesPair = (s: string): string => (s === "(") ? ")" : (s === "{") ? "}" : (s === "[") ? "]" : ""
 
-const reduceMap = (pred: boolean, elements: string[]) =>
-    elements.reduce((acc, curr) => 
-    (curr === "(") ? (acc.get(curr) < 0)
-    , myMap); 
+export const isPaired: (s: string) => boolean = s => (isPairedRecursive(s, "(", 0) && isPairedRecursive(s, "{", 0) && isPairedRecursive(s, "[", 0));
 
-export const isPaired: (s: string) => boolean = R.pipe((s: string) => stringToArray(s), R.filter(filterParentheses), 
-R.reduce((acc, curr) => { (curr === "(") ? something : (curr === "{") ? something :
-(curr === "[") ? something : (curr === ")") ? something : (curr === "}") ? something : (curr === "]") ? something : return acc; } , myMap))
+const isPairedRecursive = (s: string, sTarget: string, x: number): boolean => 
+    (s === "" && x === 0) ? true : (s === "" && x !== 0) ? false : (x < 0) ? false : 
+    (s[0] === sTarget) ? isPairedRecursive(s.slice(1), sTarget, x+1) : 
+    (s[0] === parenthesesPair(sTarget)) ? isPairedRecursive(s.slice(1), sTarget, x-1) : isPairedRecursive(s.slice(1), sTarget, x);
 
 /* Question 3 */
 interface WordTree {
