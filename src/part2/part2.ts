@@ -7,8 +7,6 @@ const stringToArray = R.split("");
 export const countLetters: (s: string) => {} = s => R.countBy(R.toLower)(stringToArray(s));
 
 /* Question 2 */
-const filterParentheses = (s: string) => (s === "(" || s === "{" || s === "[" || s === ")" || s === "}" || s === "]");
-
 let parenthesesPair = (s: string): string => (s === "(") ? ")" : (s === "{") ? "}" : (s === "[") ? "]" : ""
 
 export const isPaired: (s: string) => boolean = s => (isPairedRecursive(s, "(", 0) && isPairedRecursive(s, "{", 0) && isPairedRecursive(s, "[", 0));
