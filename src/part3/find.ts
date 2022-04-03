@@ -1,4 +1,5 @@
 import { Result, makeFailure, makeOk, bind, either } from "../lib/result";
+import { find } from "ramda";
 
 /* Library code */
 const findOrThrow = <T>(pred: (x: T) => boolean, a: T[]): T => {
@@ -9,11 +10,9 @@ const findOrThrow = <T>(pred: (x: T) => boolean, a: T[]): T => {
 }
 
 export const findResult = <T>(pred: (x: T) => boolean, a: T[]): Result<T> => {
-    for (let i = 0; i < a.length; i++) {
-        if (pred(a[i])) return makeOk(a[i]);
-    }
-    return makeFailure("No element found.");
-} //with anyPass
+    let found = find(pred)(a);
+    return (found !== undefined) ? makeOk(found) : makeFailure("No element found.");
+}
 
 /* Client code */
 const returnSquaredIfFoundEven_v1 = (a: number[]): number => {
