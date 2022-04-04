@@ -17,10 +17,12 @@ const isPairedRecursive = (s: string, sTarget: string, x: number): boolean =>
     (s[0] === parenthesesPair(sTarget)) ? isPairedRecursive(s.slice(1), sTarget, x-1) : isPairedRecursive(s.slice(1), sTarget, x);
 
 /* Question 3 */
-interface WordTree {
+export interface WordTree {
     root: string;
     children: WordTree[];
 }
 
-export const treeToSentence = (t: WordTree): string => undefined
+export const treeToSentence = (t: WordTree): string => treeToSentenceRec("", t).slice(1);
 
+const treeToSentenceRec = (s: string, t: WordTree): string => (t.children.length === 0) ? (s + " " + t.root) : 
+    t.children.reduce(treeToSentenceRec, s + " " + t.root);
